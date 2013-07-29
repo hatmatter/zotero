@@ -1334,7 +1334,8 @@ Zotero.Sync.Server = new function () {
 	};
 	
 	function login() {
-		var url = _serverURL + "login";
+        var _serverURL = Zotero.Prefs.get('sync.server.url');
+        var url = _serverURL.replace(/\/$/m,"") + "/login";
 		
 		var username = Zotero.Sync.Server.username;
 		if (!username) {
@@ -1425,7 +1426,8 @@ Zotero.Sync.Server = new function () {
 		}
 		
 		// Get updated data
-		var url = _serverURL + 'updated';
+        var _serverURL = Zotero.Prefs.get('sync.server.url');
+		var url = _serverURL.replace(/\/$/m,"") + '/updated';
 		var lastsync = Zotero.Sync.Server.lastRemoteSyncTime;
 		if (!lastsync) {
 			lastsync = 1;
@@ -1610,7 +1612,8 @@ Zotero.Sync.Server = new function () {
 							
 							Zotero.Sync.Runner.setSyncStatus(Zotero.getString('sync.status.uploadingData'));
 							
-							var url = _serverURL + 'upload';
+                            var _serverURL = Zotero.Prefs.get('sync.server.url');
+							var url = _serverURL.replace(/\/$/m,"") + '/upload';
 							var body = _apiVersionComponent
 										+ '&' + Zotero.Sync.Server.sessionIDComponent
 										+ '&updateKey=' + updateKey
@@ -1640,7 +1643,8 @@ Zotero.Sync.Server = new function () {
 										case 'queued':
 											Zotero.Sync.Runner.setSyncStatus(Zotero.getString('sync.status.uploadAccepted'));
 											
-											var url = _serverURL + 'uploadstatus';
+                                            var _serverURL = Zotero.Prefs.get('sync.server.url');
+											var url = _serverURL.replace(/\/$/m,"") + '/uploadstatus';
 											var body = _apiVersionComponent
 														+ '&' + Zotero.Sync.Server.sessionIDComponent;
 											Zotero.HTTP.doPost(url, body, function (xmlhttp) {
@@ -1798,7 +1802,8 @@ Zotero.Sync.Server = new function () {
 			return;
 		}
 		
-		var url = _serverURL + "clear";
+        var _serverURL = Zotero.Prefs.get('sync.server.url');
+		var url = _serverURL.replace(/\/$/m,"") + "/clear";
 		var body = _apiVersionComponent
 					+ '&' + Zotero.Sync.Server.sessionIDComponent;
 		
@@ -1859,7 +1864,8 @@ Zotero.Sync.Server = new function () {
 	
 	
 	function logout(callback) {
-		var url = _serverURL + "logout";
+        var _serverURL = Zotero.Prefs.get('sync.server.url');
+		var url = _serverURL.replace(/\/$/m,"") + "/logout";
 		var body = _apiVersionComponent
 					+ '&' + Zotero.Sync.Server.sessionIDComponent;
 		
